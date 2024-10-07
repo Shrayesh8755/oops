@@ -1,0 +1,70 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Employee {
+private:
+    string name;
+    int id;
+    double salary;
+
+public:
+    // Default constructor
+    Employee() {
+        name = "";
+        id = 0;
+        salary = 0.0;
+    }
+
+    // Parameterized constructor
+    Employee(string n, int i, double s) {
+        name = n;
+        id = i;
+        salary = s;
+    }
+
+    // Copy constructor
+    Employee(const Employee& emp) {
+        name = emp.name;
+        id = emp.id;
+        salary = emp.salary;
+    }
+
+    // Move constructor
+    Employee(Employee&& emp) noexcept {
+        name = move(emp.name);
+        id = emp.id;
+        salary = emp.salary;
+        emp.id = 0;
+        emp.salary = 0.0;
+    }
+
+    // Destructor
+    ~Employee() {}
+
+    // Display function
+    void display() const {
+        cout << "Name: " << name << ", ID: " << id << ", Salary: " << salary << endl;
+    }
+};
+
+int main() {
+    // Default constructor
+    Employee emp1;
+    emp1.display();
+
+    // Parameterized constructor
+    Employee emp2("John Doe", 101, 50000.0);
+    emp2.display();
+
+    // Copy constructor
+    Employee emp3 = emp2;
+    emp3.display();
+
+    // Move constructor
+    Employee emp4 = move(emp2);
+    emp4.display();
+
+    return 0;
+}
